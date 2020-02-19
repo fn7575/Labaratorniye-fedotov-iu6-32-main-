@@ -1,0 +1,6 @@
+<%= form_tag("/calc/view", :method => "get") do %>
+<%= label_tag("Введите число:") %>
+<%= text_field_tag(:val) %> <br>
+<%= submit_tag ("Выполнить") %><br>
+<%= link_to "Sign out", destroy_user_session_path, method: :delete  %>
+<%end%>

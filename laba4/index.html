@@ -1,0 +1,124 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title> Lab. 4</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="style.css">
+        <script type="text/javascript">
+            function addRow(tableID) {
+                    var tbody = document.getElementById(tableID);
+					var tr = document.createElement('tr')
+					tbody.appendChild(tr);					
+					var td1 = document.createElement('td')
+					tr.appendChild(td1);
+					var name = document.getElementById('text_field_name');
+					td1.appendChild(document.createTextNode(name.value))
+					td1.onmouseover = function(){
+						this.style.backgroundColor = "green";
+						td2.style.backgroundColor = "green";
+					}
+					td1.onmouseout = function(){
+						this.style.backgroundColor = "aliceblue";
+						td2.style.backgroundColor = "aliceblue";
+					} 
+					var td2 = document.createElement('td')				
+					tr.appendChild(td2);
+					var cost = document.getElementById('text_field_price');
+					td2.appendChild(document.createTextNode(cost.value + " руб."))
+					td2.onmouseover = function(){
+						this.style.backgroundColor = "green";
+						td1.style.backgroundColor = "green";
+					}
+					td2.onmouseout = function(){
+						this.style.backgroundColor = "aliceblue";
+						td1.style.backgroundColor = "aliceblue";
+					} 
+                      var table = document.getElementById("basket_tabel");
+                    td1.onclick = function(){
+                                var rowCount = table.rows.length;
+			                 var row = table.insertRow(rowCount);
+
+			                     var cell1 = row.insertCell(0);
+                                cell1.innerText = this.innerText;
+                           
+                                var cell2 = row.insertCell(1);
+                                cell2.innerHTML =  td2.innerText;
+                    }
+                    td2.onclick = function(){
+                         
+                         var rowCount = table.rows.length;
+                        var row = table.insertRow(rowCount);
+                         var cell1 = row.insertCell(0);
+                         cell1.innerText = td1.innerText;
+                          var cell2 = row.insertCell(1);
+                                cell2.innerHTML =  this.innerText;
+                               
+                    }
+}
+            function add(){
+            let name = document.getElementById('text_field_name').value;
+            let price = document.getElementById('text_field_price').value;
+                if (isNaN(price)|| 0 === price.length){
+                    alert("Неправильный формат");
+                }
+                else{
+                    addRow('my-table');
+                }
+            
+                }
+            
+            function total(){
+                let title = document.getElementById("total_price");
+                title.style.display= "block";
+                var tabel = document.getElementById("my-table");
+                var price=0;
+                for (let i = 1; i < tabel.rows.length; i++){
+                    console.log(i);
+                    total_price = tabel.rows[i].cells[1].innerText;
+                    var newtotal_price = total_price.substring(0, total_price.length - 5);
+                    price = price+parseInt(newtotal_price);
+                    
+                }
+                title.innerText = "Итог: "+price+"₽";
+            }
+        </script>
+    </head>
+    <body>
+    <div class="shop">
+        <div class="container">
+            <form class="shop_form">
+                <label for="title">Добавить товар</label>
+                <div class="item_form">
+                    <input id="text_field_name" type="text" placeholder="Имя товара">
+                    <input id="text_field_price" type="text" placeholder="Цена">
+                    <input type="button" value="Добавить" onclick="add()">
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="tabel_of_items">
+         <div class="container">
+             <div class="title_tabel">товары</div>
+             <table id="my-table">
+                 <tr> <th>Товар</th><th>Цена</th></tr>
+                                 
+                 
+             </table>
+        </div>
+    </div>
+        <div class="container">
+            <div class="button_price"> <input type="button" value="Вычислить стоимость" onclick="total()">
+            <div id="total_price">Итог: 8278₽</div></div>
+        </div>
+    <div class="basket">
+        <div class="container">
+            <div class="basket_title">Корзина</div>
+             <table id="basket_tabel">
+                 <tr> <th>Товар</th><th>Цена</th></tr>
+                                 
+                 
+             </table>
+            </div>
+        </div>
+    </body>
+</html>

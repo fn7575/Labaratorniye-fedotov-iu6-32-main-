@@ -1,0 +1,15 @@
+<h1>Index#input</h1>
+<p>Find me in app/views/index/input.html.erb</p>
+<%= form_with(url: "xml", method: "get", local: true) do %>
+<%= label_tag("Введите последовательность:") %>
+  <%= text_field_tag(:m) %>
+  <div>
+    <label>Выполнить на</label>
+    <select name = "side">
+      <option value = "server">Сервере</option>
+      <option value = "client-with-xslt">В Браузере</option>
+      <option value = "client">Отдать XML</option>
+    </select>
+  </div>
+  <input type="submit" value="Вычислить"/>
+<% end %>

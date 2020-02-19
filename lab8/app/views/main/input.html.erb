@@ -1,0 +1,8 @@
+<h1>Main#input</h1>
+<p>Введите n </p>
+<%= form_tag("/main/view", :method => "get") do %>
+<%= label_tag("m : ") %>
+<%= text_field_tag(:m) %> <br/><br/>
+<%= submit_tag("Готово") %>
+<% end %>
+

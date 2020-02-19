@@ -1,0 +1,5 @@
+<%= form_tag("/calc/view", :method => "get") do %>
+<%= label_tag("Введите число:") %>
+<%= text_field_tag(:val) %> <br>
+<%= submit_tag ("Выполнить") %><br>
+<%end%>

@@ -1,0 +1,68 @@
+<p>Дано натуральное число m. Написать программу, определяющую такое натуральное число n, что двоичная запись числа n получается из двоич- ной записи числа m изменением порядка цифр на обратный порядок их следования. Например: 6 = 110 , а 3 = 011. Вывести на печать числа и их двоичное представление.</p>
+<form name="lab9_form" method="get" >
+<%= label_tag("m : ") %>
+<%= text_field_tag(:m) %> <br/><br/>
+ <input name="commit" type="submit" value="Найти" onclick="return send_query();" />
+</form>
+<div id = 'error_id'></div>
+<table id="tb"></table>
+
+<script>
+calc_url= location.protocol + "//" + location.host + "/index/input.json"
+function isNumeric(value) {
+    return /^\d+$/.test(value);
+}
+function send_query(){
+
+   var tbody = document.getElementById('tb');
+          for(var i = tbody.rows.length - 1; i >= 0; i--)
+          {
+              tbody.deleteRow(i);
+          }
+var frm = document.forms.lab9_form;
+var erorr_text = document.getElementById("error_id")
+if (!isNumeric(frm.m.value)){
+
+    erorr_text.textContent = 'Неправильный формат'
+    }
+    else{
+    erorr_text.textContent = ''
+    }
+    
+var param_str = "?" +"m=" + frm.m.value
+if (param_str == "") return false;
+var my_JSON_object = {};
+
+var http_request = new XMLHttpRequest();
+http_request.open("GET", calc_url+param_str, true);
+http_request.onreadystatechange = function () {
+    var done = 4, ok = 200;
+     
+    if (http_request.readyState == done &&
+        http_request.status == ok) {
+        
+        my_JSON_object = JSON.parse(http_request.responseText);
+        
+        show_result(my_JSON_object);
+}
+};
+http_request.send(null);
+  return false;
+}
+
+function show_result(data){
+    
+
+            var tbody = document.getElementById('tb');
+  data.value.forEach(function(rowData) {
+      var tr = document.createElement('tr')
+      tbody.appendChild(tr);
+      var td1 = document.createElement('td')
+      tr.appendChild(td1);
+      
+      td1.appendChild(document.createTextNode(rowData))
+  });
+
+}
+</script>
+
